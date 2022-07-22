@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>About – Zach Gillis</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+
+        <style>
+            button:hover {
+                background-color: #183e5a !important;
+                color: white !important;
+            }
+            button {
+                background-color: #355f7f !important;
+                color: white !important;
+            }
+            .hey {
+                margin: 0;
+                position: absolute;
+                top: 45%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .social-icons .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 3.5rem;
+            width: 3.5rem;
+            background-color: #355f7f;
+            color: #fff;
+            border-radius: 100%;
+            font-size: 1.5rem;
+            margin-right: 1.5rem;
+            }
+            .social-icons .social-icon:last-child {
+            margin-right: 0;
+            }
+            .social-icons .social-icon:hover {
+            background-color: #183e5a;
+            }
+
+        </style>
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <!---
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        -->
+        <!-- Page content-->
+        
+        <div class="container-fluid">
+            <div class="row d-flex align-items-center my-auto justify-content-center">
+                <div class="col my-auto">
+                <div class = "w-50 my-auto mx-auto">
+                    <h3 class="mt-5"><a style="text-decoration: none; color: black" href="\index.html"><strong>&larr;</strong></a></h3>
+                    <h1 class="mt-3">About</h1>
+                    <p align="center"> 
+                        <!--This draws the Canvas on the webpage -->
+                          <canvas id="mycanvas"></canvas> 
+                    </p>
+                    
+                </div>
+                </div>
+                
+            </div>
+            
+        </div>
+        
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+    <script>
+       var sketchProc = function(processingInstance) {
+        with (processingInstance) {
+           size(600, 400); 
+           frameRate(30);
+           
+           // ProgramCodeGoesHere
+           /*
+    Notes: 
+
+    */
+        
+        textAlign(CENTER, CENTER);
+        textFont(createFont("monospace"));
+        
+        //current scene var to determine which scene present
+        var currentScene;
+        
+        var currentGame;
+
+        var drawBorder = function() {
+            //border
+            strokeWeight(5);
+            stroke(0, 0, 0);
+            fill(0, 0, 0, 0);
+            rect(1, 1, width - 2, height - 2);
+            noStroke();
+        };
+
+        //start scene - appears at beginning
+        var drawStartScene = function() {
+        
+            draw = function() {
+                
+                //set current scene var
+                currentScene = "drawStartScene";
+                
+                textAlign(CENTER, CENTER);
+                
+                //Title and Background
+                background(0, 0, 0);
+                fill(255, 255, 255);
+                textSize(40);
+                text("Navigator", width / 2, height / 4);
+                
+                //Buttons
+                rect(width * 0.375, height * 0.5, 150, 50);
+                rect(width * 0.375, height * 0.675, 150, 50);
+                
+                //Button Text
+                fill(255, 0, 0);
+                textSize(30);
+                text("Play", width / 2, height * 0.5625);
+                text("Help", width / 2, height * 0.7375);
+                
+                drawBorder();
+            };
+        };
+        
+        var drawExitButton = function() {
+            noStroke();
+            fill(255, 255, 255);
+            rect(width - 87.5, 0, 87.5, 30);
+            textSize(15);
+            fill(255, 0, 0);
+            text("Exit Game", width - 43, 13);
+            keyPressed = function() {
+                if (keyCode === 27) {
+                    drawStartScene();
+                }
+            };
+        };
+        
+        //actually draws start screen
+        drawStartScene();
+        
+        //The game itself below - appears after "Play" is pressed
+        var drawPlayMenuScene = function() {
+            draw = function() {
+                currentScene = "drawPlayMenuScene";
+                
+                background(0, 0, 0);
+                
+                var gameType = [
+                    {title: "Classic", descr: "Move the Navigator through a maze"},
+                    {title: "Bullet", descr: "Move the Navigator while\nbeing barraged by obstacles"},
+                    {title: "Bounce", descr: "Move the Navigator while\ndodging obstacles"}
+                ];
+                
+                //underline
+                stroke(255, 255, 255);
+                strokeWeight(4);
+                line(30, height * 0.1875, width - 30, height * 0.1875);
+                
+                //head
+                fill(255, 255, 255);
+                textSize(30);
+                text("Games", width / 2, height / 8);
+                
+                //option for() loop
+                for (var jj = 0; jj < gameType.length; jj++) {
+                    //game titles (indiv)
+                    textSize(25);
+                    textAlign(LEFT, CENTER);
+                    fill(255, 0, 0);
+                    text(gameType[jj].title, width / 12, (jj + 1) * height / 4);
+                    fill(255, 255, 255);
+                    
+                    //descriptions below
+                    textSize(15);
+                    fill(255, 255, 255);
+                    text(gameType[jj].descr, width / 8, (jj + 1.3) * height / 4);
+                    
+                    //buttons
+                    rect(width * 0.7, height / 4 * (jj + 0.9), 150, 50);
+                    fill(255, 0, 0);
+                    textSize(30);
+                    text("Play", width * 0.76, height / 4 * (jj + 1.15));
+                    textAlign(CENTER, CENTER);
+                }
+
+                //exit button
+                drawExitButton();
+                
+                drawBorder();
+            };
+        };
+        var rCtrl = function() {
+            keyPressed = function() {
+                if (keyCode === 82) {
+                        drawPlayMenuScene();
+                    }
+            };
+        };
+            
+        var drawPlayScene = function(currentGame) {
+            
+                //sets current scene
+                currentScene = "drawPlayScene";
+                
+                //size of white dots and red navigator
+                var size = [10.0, 20.0];
+                
+                //location of navigator at ALL times
+                var a = 25;
+                var b = 25;
+                
+                //used for mouse to "pick up" navigator / whether a, b = mouseX, mouseY
+                var u = 0;
+                
+                //score (shown at end - multiplied by 25 to iterate x, y)
+                var m = 0;
+                
+                //determines whether navigator passes line
+                var c = false;
+                
+                //determines whether navigator hits white dot
+                var l;
+                
+                //determines whether mouse is in canvas
+                var g;
+                
+                //determines if key was ever pressed during duration of game
+                var k = false;
+                
+                //for key ctrls
+                var slowCtrl;
+                var fastCtrl;
+                
+                //for sound
+                var sound;
+                
+                if (currentGame === 1) {
+                    slowCtrl = 1;
+                    fastCtrl = 2;
+                }
+                if (currentGame === 2 || currentGame === 3) {
+                    slowCtrl = 4;
+                    fastCtrl = 8;
+                }
+                
+                if (currentGame === 1) {
+                    //locations of white dots - .push()-ed on by for() loop
+                    var x1 = [200, 200, 200, 200, 200];
+                    var y1 = [200, 10, 35, 60, 85];
+                }
+                
+                if (currentGame === 2) {
+                    //locations of white dots
+                    var x2 = [(width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95, (width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95, (width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95];
+                    var y2 = [-10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139, -10, -100, -350, -80, -250, -183, -302, -294, -297, -382, -134, -194, -294, -124, -139,];
+                }
+                if (currentGame === 3) {
+                    //locations of white dots
+                    var x3 = [(width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95, (width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95, (width - 100) * 0.1, (width - 100) * 0.2, (width - 100) * 0.3, (width - 100) * 0.4, (width - 100) * 0.5, (width - 100) * 0.6, (width - 100) * 0.7, (width - 100) * 0.8, (width - 100) * 0.9, (width - 100) * 0.15, (width - 100) * 0.25, (width - 100) * 0.35, (width - 100) * 0.45, (width - 100) * 0.55, (width - 100) * 0.65, (width - 100) * 0.75, (width - 100) * 0.85, (width - 100) * 0.95];
+                    var y3 = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+                    var slopeNum = [0.2, 0.4, 1, 0.5, 0.8, 0.1, 0.6, 0.9, 0.7, 0.3, 0.2, 0.4, 1, 0.5, 0.8, 0.1, 0.6, 0.9, 0.7, 0.3, 0.2, 0.4, 1, 0.5, 0.8, 0.1, 0.6, 0.9, 0.7, 0.3, 0.2, 0.4, 1, 0.5, 0.8, 0.1, 0.6, 0.9, 0.7, 0.3];
+                    var slopeDen = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
+                }
+                
+                draw = function() {
+                
+                //background and color presets
+                fill(0, 0, 0);
+                background(random(0,0), random(0,0), random(0,0));
+                noStroke();
+                fill(255, 255, 255);
+                
+                if (currentGame === 1) {
+                    
+                    for (var i = 0; i < 75 + 25 * m; i++) {
+                        x1.push(random(25, width - 100));
+                        y1.push(random(25, height));
+                        ellipse(x1[i], y1[i], size[0], size[0]);
+                    }
+                    
+                    //you lose
+                    //determines whether nav. touches white dot 
+                    for (var j = 0; j < 75 + 25 * m; j++) {
+                        if (x1[j] < 20 && y1[j] < 20) {} else {
+                        if (dist(a, b, x1[j], y1[j]) < 14) {
+                            l = true;
+                        }}
+                    }
+                }
+                
+                
+                if (currentGame === 2) {
+                    
+                    //white dots
+                for (var i = m + 1; i >= 1; i += -1) {
+                    ellipse(x2[i], y2[i], size[0], size[0]);
+                    y2[i] += 7;
+                    if (y2[i] > height + 10) {
+                        y2[i] = 0;
+                    }
+                }
+                
+                //you lose
+                //determines whether nav. touches white dot 
+                for (var j = 0; j < m + 1; j++) {
+                    if (dist(a, b, x2[j], y2[j]) < 14) {
+                        l = true;
+                    }
+                }
+                }
+                
+                if (currentGame === 3) {
+                    
+                    for (var i = m + 1; i >= 1; i += -1) {
+                    ellipse(x3[i], y3[i], size[0], size[0]);
+                    y3[i] += slopeNum[i] * 6;
+                    x3[i] += slopeDen[i] * 6;
+                    if (y3[i] > height - 5) {
+                        slopeNum[i] *= -1;
+                    }
+                    if (x3[i] > width - 98) {
+                        slopeDen[i] *= -1;
+                    }
+                    if (y3[i] < 4) {
+                        slopeNum[i] *= -1;
+                    }
+                    if (x3[i] < 5) {
+                        slopeDen[i] *= -1;
+                    }
+                }
+                //you lose
+                //determines whether nav. touches white dot 
+                for (var j = m + 1; j >= 1; j += -1) {
+                    if (a < 20 && b < 20) {} else {
+                        if (dist(a, b, x3[j], y3[j]) < 14) {
+                            l = true;
+                        }
+                    }
+                }
+                
+                }
+                
+
+                
+                //immediate victory bug fix and dets. whether mouseOut
+                mouseOut = function() {
+                    g = 1;
+                };
+                if (g === 1) {
+                    u = 0;
+                    c = false;
+                    if (c === true) {
+                        a = 15;
+                        b = 15;
+                    }
+                    g = 0;
+                }
+                
+                if (mouseX < 30 && mouseY < 30 && u === 0) {
+                    u = 1;
+                    g = 0;
+                }
+                
+                mouseOut = function() {
+                    mouseOver = function() {
+                        u = 0;
+                        c = false;
+                        a = 15;
+                        b = 15;
+                    };
+                };
+                    
+                
+                
+                //mobile bug fix
+                if (dist(pmouseX, pmouseY, mouseX, mouseY) > 75 && mousePressed) {
+                    u = 0;
+                    c = false;
+                    
+                    if (u === 0 || c === true) {
+                        a = 15;
+                        b = 15;
+                    }
+                    if (mouseX < 30 && mouseY < 30 && u === 0) {
+                        u = 1;
+                    }
+                }
+                
+                    //you lose screen
+                if (l === true) {
+                    background(255, 0, 0);
+                    playSound(getSound("retro/laser3"));
+                    fill(0, 0, 0);
+                    textSize(50);
+                    textAlign(CENTER, CENTER);
+                    text("YOU LOSE!\n\nScore: " + (m + 1), width / 2, height / 2);
+                    textSize(15);
+                    text("Press \"Exit Game\" or the \"esc\" or \"r\" keys\nto retry or quit", width / 2, height * 0.875);
+                    //resets for next time
+                    a = 15;
+                    b = 15;
+                    u = 0;
+                }
+                
+                //red dot
+                fill(255, 0, 0);
+                ellipse(a, b, size[1], size[1]);
+                
+                
+                
+                //mouse pickup
+                if (u === 0 || c === true) {
+                    a = 15;
+                    b = 15;
+                }
+                if (mouseX < 25 && mouseY < 25 && u === 0) {
+                    u = 1;
+                }
+                //key pickup
+                if (keyIsPressed) {
+                    u = 1;
+                    k = true;
+                }
+                //mouse pickup if keys aren't being used
+                    if (k === true) {} else if (u === 1) {
+                        a = mouseX;
+                        b = mouseY;
+                    }
+                //mouse pickup after keys used
+                mouseMoved = function() {
+                    if (dist(a, b, mouseX, mouseY) < 10) {
+                        k = false;
+                    }
+                }; 
+                
+                //if nav. passes line (500 px(width - 100) in x dir.)
+                if (a > width - 100 && c === false) {
+                    c = true;
+                    playSound(getSound("retro/coin"));
+                }
+                
+                //key ctrls
+                if (keyIsPressed) {
+                    if (b < 9) {} else {
+                        if (keyCode === UP) {
+                            b -= slowCtrl;
+                        }
+                        if (key.toString() === 'w') {
+                            b -= fastCtrl;
+                        }
+                    }
+                    if (b > height - 9) {} else {
+                        if (keyCode === DOWN) {
+                            b += slowCtrl;
+                        }
+                        if (key.toString() === 's') {
+                            b += fastCtrl;
+                        }
+                    }
+                    if (a < 9) {} else {
+                        if (keyCode === LEFT) {
+                            a -= slowCtrl;
+                        }
+                        if (key.toString() === 'a') {
+                            a -= fastCtrl;
+                        }
+                    }
+                    if (a > width - 9) {} else {
+                        if (keyCode === RIGHT) {
+                            a += slowCtrl;
+                        }
+                    if (key.toString() === 'd') {
+                            a += fastCtrl;
+                        }
+                    }
+                }
+                
+                
+                //restores navigator presets for next level
+                if (c === true) {
+                    m++;
+                    u = 0;
+                    a = 15;
+                    b = 15;
+                    c = false;
+                }
+                //red line
+                strokeWeight(5);
+                stroke(255, 0, 0);
+                line(width - 90, 0, width - 90, 400);
+                
+
+                
+                //exit button
+                drawExitButton();
+                
+                //level indicator
+                textAlign(CENTER, CENTER);
+                textSize(50);
+                text(m + 1, width - 45, height - 35);
+                
+                drawBorder();
+                
+                rCtrl();
+                };
+            };
+        
+        
+        
+        
+        
+        //function for help screen
+        var drawHelpScene = function() {
+        
+            draw = function() {
+                
+                //sets current scene
+                currentScene = "drawHelpScene";
+                
+                //text, color, and location presets
+                background(0, 0, 0);
+                textAlign(CENTER, TOP);
+                textSize(40);
+                fill(255, 0, 0);
+                
+                //directions head
+                text("HOW TO PLAY", width / 2, height * 0.0625);
+                
+                //underline
+                stroke(255, 255, 255);
+                strokeWeight(4);
+                line(30, height * 0.1875, width - 30, height * 0.1875);
+                
+                //directions
+                textSize(15);
+                fill(255, 255, 255);
+                text("1. To use the mouse, \"Pick up\" the red navigator\nin the corner by hovering over it.", width / 2, 110);
+                text("2. Or, use the arrow keys to move the navigator slowly\nor WASD to move it quickly.", width / 2, 160);
+                text("3. Try to move the navigator past the red line\nwithout hitting a white dot.", width / 2, 210);
+                text("4. The game progressively gets\nmore difficult as it continues.", width / 2, 260);
+                
+                //return button on bot. help screen
+                rect(width * 0.375, height * 0.825, 150, 50);
+                fill(255, 0, 0);
+                textSize(30);
+                textAlign(CENTER, CENTER);
+                text("Return", width / 2, height * 0.8875);
+                
+                drawBorder();
+                rCtrl();
+            };
+            
+        };
+        
+        
+        
+
+        
+        //buttons (throughout ALL of game)
+        mouseClicked = function() {
+            
+            //play button
+            if (
+                mouseX > width * 0.375 && 
+                mouseX < width * 0.625 && 
+                mouseY > height / 2 && 
+                mouseY < height * 0.625 && 
+                currentScene === "drawStartScene") {
+                    drawPlayMenuScene();
+                    playSound(getSound("retro/hit1"));
+            }
+            
+            //help button
+            if (
+                mouseX > width * 0.375 && 
+                mouseX < width * 0.625 && 
+                mouseY > height * 0.675 && 
+                mouseY < height * 0.8 && 
+                currentScene === "drawStartScene") {
+                    drawHelpScene();
+                    playSound(getSound("retro/hit1"));
+            }
+            
+            //return button (on help)
+            if (
+                mouseX > width * 0.375 && 
+                mouseX < width * 0.625 && 
+                mouseY > height * 0.825 && 
+                mouseY < height * 0.95 && 
+                currentScene === "drawHelpScene") {
+                    drawStartScene();
+                    playSound(getSound("retro/hit1"));
+            }
+            
+            if (
+                mouseX > width - 100 && 
+                mouseY < 30 &&
+                currentScene !== "drawHelpScene") {
+                    drawStartScene();
+            }
+            
+            if (
+                mouseX > width * 0.7 && 
+                mouseX < width * 0.7 + 150 && 
+                mouseY > height / 4 * (0 + 0.9) && 
+                mouseY < height / 4 * (0 + 0.9) + 50 &&
+                currentScene === "drawPlayMenuScene") {
+                    drawPlayScene(1);
+                    playSound(getSound("retro/hit1"));
+                }
+            
+            if (
+                mouseX > width * 0.7 && 
+                mouseX < width * 0.7 + 150 && 
+                mouseY > height / 4 * (1 + 0.9) && 
+                mouseY < height / 4 * (1 + 0.9) + 50 &&
+                currentScene === "drawPlayMenuScene") {
+                    drawPlayScene(2);
+                    playSound(getSound("retro/hit1"));
+                }
+                    
+            if (
+                mouseX > width * 0.7 && 
+                mouseX < width * 0.7 + 150 && 
+                mouseY > height / 4 * (2 + 0.9) && 
+                mouseY < height / 4 * (2 + 0.9) + 50 &&
+                currentScene === "drawPlayMenuScene") {
+                    drawPlayScene(3);
+                    playSound(getSound("retro/hit1"));
+                }
+            };
+
+
+       }};
+
+
+       
+   
+       // Get the canvas that Processing-js will use
+       var canvas = document.getElementById("mycanvas"); 
+       // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+       var processingInstance = new Processing(canvas, sketchProc); 
+    </script>
+</html>
