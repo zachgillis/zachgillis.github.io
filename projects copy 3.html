@@ -84,41 +84,10 @@
                 <div class = "w-50 my-auto mx-auto">
                     <h3 class="mt-5"><a style="text-decoration: none; color: black" href="\index.html"><strong>&larr;</strong></a></h3>
                     <h1 class="mt-3">About</h1>
-                    
-                    <canvas id="canvas"></canvas>
-    <script>
-        var canvas = document.getElementById("canvas");
-        var processing = new Processing(canvas, function(processing) {
-            processing.size(400, 400);
-            processing.background(0xFFF);
-    
-            var mouseIsPressed = false;
-            processing.mousePressed = function () { mouseIsPressed = true; };
-            processing.mouseReleased = function () { mouseIsPressed = false; };
-    
-            var keyIsPressed = false;
-            processing.keyPressed = function () { keyIsPressed = true; };
-            processing.keyReleased = function () { keyIsPressed = false; };
-    
-            function getImage(s) {
-                var url = "https://www.kasandbox.org/programming-images/" + s + ".png";
-                processing.externals.sketch.imageCache.add(url);
-                return processing.loadImage(url);
-            }
-    
-            with (processing) {
-                
-                
-                // INSERT YOUR KHAN ACADEMY PROGRAM HERE
-                fill(255, 0, 0);
-                text("hi",50,50);
-                
-                
-            }
-            if (typeof draw !== 'undefined') processing.draw = draw;
-        });
-    </script>
-                    
+                    <p align="center"> 
+                        <!--This draws the Canvas on the webpage -->
+                          <canvas id="mycanvas"></canvas> 
+                    </p>
                     
                 </div>
                 </div>
