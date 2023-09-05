@@ -1,34 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <meta name="google-site-verification" content="rG6CI35W8Eb2Y_ldGLZexGAigONybUkOuQdZj88H1rE" />
-        <title>Zach Gillis</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="google-site-verification" content="rG6CI35W8Eb2Y_ldGLZexGAigONybUkOuQdZj88H1rE" />
+    <title>Zach Gillis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 
-        <style>
-            button:hover {
-                background-color: #183e5a !important;
-                color: white !important;
-            }
-            button {
-                background-color: #355f7f !important;
-                color: white !important;
-            }
-            .hey {
-                margin: 0;
-                position: absolute;
-                top: 45%;
-                -ms-transform: translateY(-50%);
-                transform: translateY(-50%);
-            }
-            .social-icons .social-icon {
+    <style>
+        /* Add this CSS to center everything */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Add a max-width to limit content width */
+        .content-container {
+            max-width: 800px; /* Adjust this value as needed */
+            width: 100%;
+            margin: 0 20px; /* Add equal margins on both sides */
+        }
+
+        button:hover {
+            background-color: #183e5a !important;
+            color: white !important;
+        }
+
+        button {
+            background-color: #355f7f !important;
+            color: white !important;
+        }
+
+        .hey {
+            text-align: center;
+        }
+
+        /* Center the button container */
+        .button-container {
+            margin: 0; /* Remove Bootstrap's margin */
+            padding: 0;
+        }
+
+        /* Center buttons within columns */
+        .button-container .col {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Add margin to top and bottom of buttons */
+        .button-container .btn {
+            margin: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Add margin at the top */
+        }
+
+        .social-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -38,78 +76,48 @@
             color: #fff;
             border-radius: 100%;
             font-size: 1.5rem;
-            margin-right: 1.5rem;
-            }
-            .social-icons .social-icon:last-child {
-            margin-right: -1.5rem;
-            
-            }
-            .social-icons .social-icon:hover {
-            background-color: #183e5a;
-            }
+            margin: 0 10px; /* Add margin on each side of social icons */
+        }
 
-        </style>
-    </head>
-    <body>
-        <!-- Responsive navbar-->
-        <!---
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+        .social-icons .social-icon:last-child {
+            margin-right: 0; /* Remove margin for the last icon */
+        }
+
+        .social-icons .social-icon:hover {
+            background-color: #183e5a;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid content-container">
+    <div class="hey text-center">
+        <div class="col">
+            <h1 class="mt-5">Zach Gillis</h1>
+            <p class="lead mb-4 mt-4">Student at the University of Chicago majoring in mathematics and physics with interests in astrophysics, quantum engineering, biotechnology, and computer science.</p>
+            <!-- Center the button container -->
+            <div class="row button-container">
+                <div class="col">
+                    <button type="button" class="btn btn-lg p-4 m-2 w-100" onclick="window.location.href='/about.html';">About</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-lg p-4 m-2 w-100" onclick="window.location.href='/projects.html';">Projects</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-lg p-4 m-2 w-100" onclick="window.location.href='/contact.html';">Contact</button>
                 </div>
             </div>
-        </nav>
-        -->
-        <!-- Page content-->
-        
-        <div class="container-fluid">
-            <div class="hey text-center row d-flex align-items-center my-auto justify-content-center">
-                <div class="col my-auto">
-                <div class = "w-50 my-auto mx-auto">
-                    <h1 class="mt-5">Zach Gillis</h1>
-                    <p class="lead mb-4 mt-4 ">Student at the University of Chicago majoring in mathematics and physics with interests in astrophysics, quantum engineering, biotechnology, and computer science.</p>
-                    <div class="text-center row">
-                        <div class = "col">
-                            <button type="button" class="btn btn-lg  p-4 m-3 w-100" onclick="window.location.href='/about.html';">About</button>
-                        </div>
-                        <div class = "col">
-                            <button type="button" class="btn btn-lg  p-4 m-3 w-100" onclick="window.location.href='/projects.html';">Projects</button>
-                        </div>
-                        <div class = "col">
-                            <button type="button" class="btn btn-lg  p-4 m-3 w-100" onclick="window.location.href='/contact.html';">Contact</button>
-                        </div>
-                    </div>
-                    
-                </div>
-                </div>
-                <div class="row text-center mt-5">
-                    <div class="social-icons">
-                        <a target="_blank" class="social-icon mr-5 ml-5" href="https://www.linkedin.com/in/zach-gillis/"><i class="fab fa-linkedin-in"></i></a>
-                        <a target="_blank" class="social-icon last-child mr-5 ml-5" href="https://github.com/zachgillis"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-            </div>
-            
         </div>
-        
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
+        <div class="row text-center mt-5">
+            <div class="social-icons">
+                <a target="_blank" class="social-icon mr-5 ml-5" href="https://www.linkedin.com/in/zach-gillis/"><i class="fab fa-linkedin-in"></i></a>
+                <a target="_blank" class="social-icon mr-5 ml-5" href="https://github.com/zachgillis"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
 </html>
