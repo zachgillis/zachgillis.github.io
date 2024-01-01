@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+body {
+    font-family: 'Playfair Display', serif;
+    background-color: #f5f5f5;
+    color: #333;
+    text-align: center;
+    padding: 40px;
+}
+
+body, html {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    /* Other styles... */
+}
+
+h1 {
+    font-size: 48px;
+    padding-bottom: 0px;
+}
+
+#game {
+    background-color: #ffffff;
+    margin: 0 auto;
+    width: 70%;
+    max-width: 800px;
+    padding: 40px;
+    margin-top: 60px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: width 0.3s ease, padding 0.3 ease; /* Smooth transition for width change */
+    box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+    #game {
+        width: 100%; /* Make #game take up full width */
+        border-radius: 0; /* Optional: remove border-radius for full-width */
+        box-shadow: none; /* Optional: remove box-shadow for a flat design */
+        padding: 20px; /* Adjust padding to be smaller on a small screen */
+        margin: 0; /* Remove default margin */
+        box-sizing: border-box; /* Include padding in the width calculation */
+    }
+}
+
+input, button {
+    font-family: 'Arial', sans-serif;
+    border: 2px solid #cccccc;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 25px;
+    background-color: #f0f0f0;
+    text-align: center;
+    width: 80%;
+    font-size: 16px;
+}
+
+button {
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #dddddd;
+}
+
+#clue-container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.clue-column {
+    flex: 1; /* Ensure each column takes up equal space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center children vertically */
+    position: relative; /* Positioning context for pseudo-elements */
+}
+
+/* Add pseudo-elements for the lines */
+.clue-column:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0; /* Start from the top */
+    bottom: 0; /* Stretch to the bottom */
+    width: 1px; /* Line thickness */
+    background-color: #cccccc; /* Line color */
+    margin: auto 0; /* Center the line vertically */
+}
+
+.clue-category {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.clue-text {
+    color: #007bff;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #666;
+}
+
+#guess-counter {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.guess-number {
+    font-size: 48px;
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+}
