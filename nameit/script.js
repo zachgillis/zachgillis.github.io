@@ -1157,34 +1157,35 @@ function updateClueDisplay() {
 }
 
 function submitGuess() {
-    let guess = document.getElementById('guess').value.toLowerCase().trim(); // Convert to lowercase and trim
+    let guessInput = document.getElementById('guess');
+    let guess = guessInput.value.toLowerCase().trim();
+
     if (isCorrectAnswer || !guess) {
         return; // If the correct answer has been guessed, or input is empty, don't do anything
     }
 
-    let guessInput = document.getElementById('guess');
     let guessCounterDiv = document.getElementById('guess-counter');
-
-    guessCount++; // Increment the guess count for every guess
 
     if (guess === currentWord.toLowerCase()) { // Compare with currentWord in lowercase
         isCorrectAnswer = true;
         document.getElementById('result').innerText = 'Correct! Well done!';
+        guessInput.disabled = true; // Disable the input field
         confetti({
             particleCount: 100,
             spread: 70,
             origin: { y: 0.6 },
         });
     } else {
+        guessCount++; // Increment the guess count for incorrect guesses
         guessInput.classList.add('shake');
         setTimeout(() => guessInput.classList.remove('shake'), 500);
         if (cluesGiven[cluesGiven.length - 1].category === '') {
             showClue();
         }
+        guessInput.value = ''; // Clear the input field for the next guess
     }
 
     guessCounterDiv.innerHTML = `Guesses so far: <span class="guess-number">${guessCount}</span>`;
-    guessInput.value = '';
 }
 
 function handleKeyPress(event) {
