@@ -110,11 +110,17 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
+  text-decoration: underline;
 }
 @media (min-width: 1200px) {
   h1, .h1 {
     font-size: 2.5rem;
   }
+}
+
+h1.no-underline {
+  font-size: calc(1.375rem + 1.5vw);
+  text-decoration: none !important;
 }
 
 h2, .h2 {
