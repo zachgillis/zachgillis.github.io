@@ -119,7 +119,7 @@ h1, .h1 {
 }
 
 h1.no-underline {
-  font-size: calc(1.8rem + 1.8vw);
+  font-size: calc(1.6rem + 1.7vw);
   text-decoration: none !important;
 }
 
