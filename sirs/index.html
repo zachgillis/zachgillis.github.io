@@ -75,11 +75,11 @@
             <div class="withspace">
                 <label class="eb_label" for="coupling_range" title="Neighbor coupling range">Coupling range</label>
                 <select id="coupling_range" onchange="update_coupling_range()">
-                    <option value="nn" selected="selected">Nearest neighbors</option>
-                    <option value="nn_prob">Nearest + p chance of 1 random diagonal</option>
-                    <option value="nnn">Next-to-nearest (diagonals equal weight)</option>
-                    <option value="nnnn">Next-to-next (distance-2 equal weight)</option>
-                    <option value="nnnnn">Next-to-next-to-next (knight/L equal weight)</option>
+                    <option value="nn" selected="selected">NN</option>
+                    <option value="nn_prob">p-coupling</option>
+                    <option value="nnn">NNN</option>
+                    <option value="nnnn">NNNN</option>
+                    <option value="nnnnn">NNNNN</option>
                 </select>
             </div>
             <div>
