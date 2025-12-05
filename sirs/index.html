@@ -1,0 +1,158 @@
+
+<!-- saved from url=(0040)https://mattbierbaum.github.io/ising.js/ -->
+<html style="--vsc-domain: &quot;mattbierbaum.github.io&quot;;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" async="" src="./ising.js_files/js"></script><script async="" src="./ising.js_files/analytics.js"></script><script src="./ising.js_files/ising.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-38463781-6', 'mattbierbaum.github.io');
+  ga('send', 'pageview');
+
+</script>
+<link rel="stylesheet" href="./ising.js_files/style.css">
+
+<title>ising.js</title>
+<style type="text/css" id="ctre_styles">
+			#ctre_wnd {
+				position: fixed; bottom: 0; right: 10px;
+				background: #fff; box-shadow: 0px 0px 40px rgba(0,0,0,0.15);
+				border-radius: 3px 3px 0 0;
+				z-index: 2147483647;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				#ctre_wnd { background: #000; box-shadow: 0px 0px 40px rgba(255,255,255,0.15); }
+			}
+			</style></head>
+<body>
+    <div id="big">
+    <center><h1>SIRS simulation</h1></center>
+    <div id="ising">
+        <canvas id="canvas" height="512" width="512"></canvas>
+    </div>
+    <div id="panelcontainer">
+        <!-- ===================  add control panel items between here ============== -->
+        <div id="panel">
+            <pre class="code" id="label_time">time =  793.0000   sweeps/sec =  74.057</pre>
+            <pre class="code" id="label_energy">e = -1.36292   &lt;e&gt; = -1.34359   Var(e) =  0.0050564</pre>
+            <pre class="code" id="label_mag">I = 0.05000   &lt;I&gt; = 0.05000   Var(I) =  0.0000000</pre>
+            <br>
+            <div id="isinggraph">
+                <canvas id="canvas-graph" height="150" width="370"></canvas>
+            </div>
+            <div>
+                <label class="eb_label" for="temp" title="Temperature">Temperature</label>
+                <input style="width:150px;" type="range" id="temp" min="-5" max="2" step="0.000001" value="0" oninput="update_temp()" onchange="update_temp()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_temp">2.269185</span>
+                <input style="width: 80px; display: none;" id="label_temp_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div>
+                <label class="eb_label" for="hI" title="Infected field h_I">h_I</label>
+                <input style="width:150px;" type="range" id="hI" min="-5" max="10" step="0.00001" value="2" oninput="update_hI()" onchange="update_hI()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_hI">2.000000</span>
+                <input style="width: 80px; display: none;" id="label_hI_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div>
+                <label class="eb_label" for="hR" title="Recovered field h_R">h_R</label>
+                <input style="width:150px;" type="range" id="hR" min="-5" max="10" step="0.00001" value="0.5" oninput="update_hR()" onchange="update_hR()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_hR">0.500000</span>
+                <input style="width: 80px; display: none;" id="label_hR_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div>
+                <label class="eb_label" for="loss_immunity_prob" title="Probability an accepted R→S flip actually happens (log scale slider)">P(R->S)</label>
+                <input style="width:150px;" type="range" id="loss_immunity_prob" min="-12" max="0" step="0.0001" value="0" oninput="update_loss_immunity_prob()" onchange="update_loss_immunity_prob()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_loss_immunity_prob">1.000000</span>
+                <input style="width: 80px; display: none;" id="label_loss_immunity_prob_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div>
+                <label class="eb_label" for="J_SI" title="S–I interaction strength">J_SI</label>
+                <input style="width:150px;" type="range" id="J_SI" min="0" max="30" step="0.00001" value="6" oninput="update_J_SI()" onchange="update_J_SI()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_J_SI">6.000000</span>
+                <input style="width: 80px; display: none;" id="label_J_SI_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div class="withspace">
+                <label class="eb_label" for="coupling_range" title="Neighbor coupling range">Coupling range</label>
+                <select id="coupling_range" onchange="update_coupling_range()">
+                    <option value="nn" selected="selected">Nearest neighbors</option>
+                    <option value="nn_prob">Nearest + p chance of 1 random diagonal</option>
+                    <option value="nnn">Next-to-nearest (diagonals equal weight)</option>
+                    <option value="nnnn">Next-to-next (distance-2 equal weight)</option>
+                    <option value="nnnnn">Next-to-next-to-next (knight/L equal weight)</option>
+                </select>
+            </div>
+            <div>
+                <label class="eb_label" for="corner_prob" title="p in [0,4]: add floor(p) random diagonals + (p - floor(p)) chance of one more">p</label>
+                <input style="width:150px;" type="range" id="corner_prob" min="0" max="4" step="0.0001" value="0.5" oninput="update_corner_prob()" onchange="update_corner_prob()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_corner_prob">0.5000</span>
+                <input style="width: 80px; display: none;" id="label_corner_prob_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div>
+                <label class="eb_label" for="frames" title="Samples per redraw">Sweep skip</label>
+                <input style="width:150px;" type="range" id="frames" min="-2" max="2" step="0.00001" value="0" oninput="update_frames()" onchange="update_frames()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_frames">1.000000</span>
+                <input style="width: 80px; display: none;" id="label_frames_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div class="withspace">
+                <label class="eb_label" for="method">Update method:</label>
+                <span class="eb_span">Metropolis (S → I → R → S)</span>
+            </div>
+            <div class="withspace">
+                <label class="eb_label" for="num">Lattice size</label>
+                <select id="changenum" onchange="change_num()">
+                    <option value="512">512</option>
+                    <option value="256" selected="selected">256</option>
+                    <option value="128">128</option>
+                    <option value="64">64</option>
+                    <option value="32">32</option>
+                    <option value="16">16</option>
+                </select>
+            </div>
+            <div class="withspace">
+                <label class="eb_label" for="init_frac" title="Initial infected fraction">Init I fraction</label>
+                <input style="width:150px;" type="range" id="init_frac" min="0" max="1" step="0.0001" value="0.05" oninput="update_init_frac()" onchange="update_init_frac()">
+                <span onclick="dotextbox(this.id)" class="eb_span" id="label_init_frac">0.0500</span>
+                <input style="width: 80px; display: none;" id="label_init_frac_input" type="text" value="" onblur="undotextbox(this.id)">
+            </div>
+            <div class="withspace">
+                <label class="eb_label" for="center_seed" title="Start with single infected center site">Center seed (1 infected)</label>
+                <input type="checkbox" id="center_seed" onchange="update_center_seed()">
+            </div>
+            <!--<div class="withspace">
+                <label class="eb_label" for="periodic_boundary" title="Wrap edges of the lattice">Periodic boundary</label>
+                <input type="checkbox" id="periodic_boundary" onchange="update_periodic_boundary()" checked>
+            </div>-->
+
+            <div>
+                <center>
+                <input type="button" id="dostep" value="Step" onclick="update_step()">
+                <input type="button" id="pause" value="Pause" onclick="update_pause()">
+                <input type="button" id="restart" value="Restart" onclick="update_restart()">
+                <input type="button" id="resetdata" value="Reset data" onclick="init_measurements()">
+                <br>
+                <input type="button" id="downloaddata" value="Download data" onclick="download_measurements()">
+                <input type="button" id="downloadclusters" value="Download cluster histogram" onclick="download_cluster_histogram()">
+                <input type="button" id="downloadgraph" value="Download graph" onclick="download_graph()">
+                <input type="button" id="downloadgraph" value="Download field" onclick="download_field()">
+                </center>
+            </div>
+        </div>
+
+        <!-- ==========================   and here ================================= -->
+    </div>
+    <br>
+    <br>
+
+Red = infected, blue = susceptible, green = recovered.
+
+    <br>
+    <br>
+
+<p>Adapted from Matt Bierbaum's Ising.js.</p>
+
+</div>
+
+
+</body></html>
